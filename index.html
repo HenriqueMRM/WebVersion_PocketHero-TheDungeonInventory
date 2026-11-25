@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pocket Hero: The Dungeon Inventory</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+</head>
+<body>
+    <!--Menu de seleção de classe-->
+    <div class="class_selection">
+        <h1>Bem-Vindo(a) à Pocket Hero: The Dungeon Inventory</h1>
+        <h2>Escolha sua classe:</h2>
+        <div class="cards-container">
+            <div class="warrior_selection">
+                <p>⚔️ Warrior 🛡️</p>
+                <p>❤️ Vida inicial: 100 HP</p>
+                <p>🎒 Arma inicial: Wooden Sword</p>
+                <p>ℹ️ Habilidade Passiva: Começa com 5 de armadura. Aumenta em +5 a cada 10 ondas.</p>
+                <p>✨ Habilidade Ativa: Retaliação de Escudo</p>
+                <p>   Causa dano baseado em 2x a sua armadura total.</p>
+                <button id="btn-warrior">Escolher Warrior</button>
+            </div>
+            <div class="archer_selection">
+                <p>🏹 Archer 🏹</p>
+                <p>❤️ Vida inicial: 75 HP</p>
+                <p>🎒 Arma inicial: Wooden Bow</p>
+                <p>ℹ️ Habilidade Passiva: Arcos atiram 3 vezes, ainda gastando apenas 2 de durabilidade.</p>
+                <p>✨ Habilidade Ativa: Chuva de Flechas</p>
+                <p>   Dispara uma rajada de flechas causando 30 de dano por monstro na onda.</p>
+                <button id="btn-archer">Escolher Archer</button>
+            </div>
+            <div class="berserker_selection">
+                <p>🪓 Berserker 🪓</p>
+                <p>❤️ Vida inicial: 125 HP</p>
+                <p>🎒 Arma inicial: Wooden Axe</p>
+                <p>ℹ️ Habilidade Passiva: Aumenta o dano em 5 a cada 20 de HP perdido durante a luta.</p>
+                <p>✨ Habilidade Ativa: Grito de Fúria</p>
+                <p>   Aumenta a fúria em +10 de dano por monstro na onda.</p>
+                <button id="btn-berserker">Escolher Berserker</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Principal -->
+    <div id="menu-principal">
+        <h2>Pocket Hero: The Dungeon Inventory</h2>
+        <h3>Seja Muito Bem-Vindo(a)</h3>
+        
+        <div class="main-menu-grid">
+            <!-- Painel do Herói (Lado Esquerdo) -->
+            <div id="status-container">
+                <h3> Status do Herói</h3>
+                <div class="status-list">
+                    <p><span>✨ Classe:</span> <strong id="info-classe">Nenhuma</strong></p>
+                    <p><span>❤️ HP:</span> <strong id="info-hp">100</strong></p>
+                    <p><span>🛡️ Armadura:</span> <strong id="info-armadura">0</strong></p>
+                    <p><span>💰 Ouro:</span> <strong id="info-ouro">50</strong></p>
+                    <p><span>🔥 Onda Atual:</span> <strong id="info-onda">1</strong></p>
+                </div>
+            </div>
+
+            <!-- Painel de Ações (Lado Direito) -->
+            <div id="acao-menu">
+                <h3>⚔️ O que deseja fazer?</h3>
+                <button id="btn-enfrentar-monstro" class="btn-principal">⚔️ Enfrentar Monstro</button>
+                <button id="btn-ir-loja">🛒 Ir para a Loja</button>
+                <button id="btn-ver-mochila">🎒 Ver Mochila</button>
+                <button id="btn-sair-jogo">🚪 Sair do Jogo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela de Combate-->
+    <div id="menu-luta">
+        <h2>⚔️ Combate Iniciado!</h2>
+        <p class="onda-arena-info">🔥 Onda <span id="luta-onda">1</span> | 👾 Monstros restantes: <span id="monstros-restantes">1</span></p>
+
+        <!-- Arena do Combate (VS Layout) -->
+        <div class="arena-container">
+            <!-- Card do Herói -->
+            <div class="combat-card player-card">
+                <h3>Seu Herói</h3>
+                <p class="stat-row">❤️ HP: <strong id="player_hp">100</strong></p>
+                <p class="stat-row">🛡️ Armadura: <strong id="player_armor">0</strong></p>
+            </div>
+
+            <div class="versus-badge">VS</div>
+
+            <!-- Card do Monstro -->
+            <div class="combat-card monster-card">
+                <h3>👾 <span id="monstro_atual_titulo">NomeDoMonstro</span> (<span id="tipo">monstro</span>)</h3>
+                <p class="stat-row">❤️ HP: <strong id="hp_monstro">0</strong> / <span id="hp_monstro_titulo">0</span></p>
+                <p class="stat-row">⚔️ Dano: <strong id="dano_monstro_titulo">0</strong></p>
+            </div>
+        </div>
+
+        <!-- Botões de Ação de Combate -->
+        <div class="combat-actions">
+            <button id="btn-atacar" class="btn-combate-atacar">⚔️ Atacar</button>
+            <button id="btn-usar-cura">❤️ Usar Item de Cura</button>
+            <button id="btn-habilidade">
+                ✨ <span id="nome-habilidade">Habilidade Especial</span> <span id="status-habilidade">(Disponível)</span>
+            </button>
+            <button id="btn-fugir" class="voltar-menu">🏃 Fugir</button>
+        </div>
+
+        <!-- Seleção Dinâmica de Armas/Comidas -->
+        <div id="selecao-item-combate">
+            <p id="titulo-selecao">Escolha um item:</p>
+            <div id="lista-itens-combate">
+                <!-- O Python gera os botões aqui -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu da Loja -->
+    <div id="menu-loja">
+        <h2>🛒 Seja bem-vindo(a) à Loja!</h2>
+        <h3 class="gold-display">💰 Seu Ouro Atual: <span id="player_gold">50</span> ouros</h3>
+
+        <div class="loja-grid">
+            <!-- Slot Arma -->
+            <div class="loja-item">
+                <h3>⚔️ Arma Disponível</h3>
+                <h4><span id="item1">NomeArma</span> <span id="item1_tipo" class="item-tag">(Tipo)</span></h4>
+                <p class="item-price">💰 <span id="preco1">0</span> ouros</p>
+                <p class="item-detail">⚔️ Dano: <strong id="item1_dano">0</strong></p>
+                <p class="item-detail">🛡️ Durabilidade: <strong id="item1_durabilidade">0</strong></p>
+                <p class="item-desc">ℹ️ <span id="item1_descricao">Sem descrição.</span></p>
+                <button id="btn-comprar-arma">Comprar Arma</button>
+            </div>
+
+            <!-- Slot Comida -->
+            <div class="loja-item">
+                <h3>🍎 Comida Fresca</h3>
+                <h4><span id="item2">NomeComida</span></h4>
+                <p class="item-price">💰 <span id="preco2">0</span> ouros</p>
+                <p class="item-detail">❤️ Cura: <strong id="item2_cura">0</strong> HP</p>
+                <button id="btn-comprar-comida">Comprar Comida</button>
+            </div>
+
+            <!-- Slot Armadura -->
+            <div class="loja-item">
+                <h3>🛡️ Armadura de Proteção</h3>
+                <h4><span id="item3">NomeArmadura</span></h4>
+                <p class="item-price">💰 <span id="preco3">0</span> ouros</p>
+                <p class="item-detail">🛡️ Armadura: <strong id="valor_armadura">0</strong></p>
+                <button id="btn-comprar-armadura">Comprar Armadura</button>
+            </div>
+        </div>
+
+        <div class="loja-footer">
+            <button id="btn-sair-loja" class="voltar-menu">🚪 Sair da Loja</button>
+        </div>
+    </div>
+
+    <!-- Tela da Mochila / Inventário -->
+    <div id="menu-mochila">
+        <h2>🎒 Inventário da Mochila</h2>
+        <div id="lista-mochila">
+            <!-- O Python vai inserir os itens aqui -->
+            <p>Sua mochila está vazia!</p>
+        </div>
+        <button id="btn-sair-mochila">Voltar ao Menu Principal</button>
+    </div>
+
+    <!-- Tela Final -->
+    <div id="tela-final">
+        <h1 id="msg-final">Fim de Jogo</h1>
+        <button id="btn-reiniciar">Jogar novamente</button>
+    </div>
+    
+    <!-- Log de Eventos -->
+    <div id="log-container">
+        <h3>Histórico da Aventura</h3>
+        <p id="log-texto">Selecione uma classe para começar...</p>
+    </div>
+
+    <script type="py" src="PocketHero-TheDungeonInventory.py"></script>
+</body>
+</html>
