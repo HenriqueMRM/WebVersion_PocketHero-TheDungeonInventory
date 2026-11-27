@@ -1,5 +1,13 @@
 # WebVersion_PocketHero-TheDungeonInventory
 
-Versão Web usando Pyscript de um jogo que fiz inicialmente para Terminal no Google Colab
+**Versão Web do jogo Pocket Hero: The Dungeon Inventory**, originalmente desenvolvido para execução no terminal do Google Colab e posteriormente adaptado para a Web utilizando Python com PyScript.
 
-Pocket Hero: The Dungeon Inventory é uma aplicação Web de um jogo RPG na qual você escolhe entre as classes Warrior (Guerreiro), Archer (Arqueiro) ou Berserker (Bárbaro) e enfrenta ondas de monstros, minibosses e bosses, enquanto gerencia os itens da sua mochila. A cada inimigo derrotado, você coleta ouro para gastar na loja em armas mais fortes, comidas para restaurar seu HP e armaduras para aumentar sua defesa contra os próximos desafios.
+🎮 **[Clique aqui para jogar!](https://henriquemrm.github.io/WebVersion_PocketHero-TheDungeonInventory/)**
+
+## Sobre o jogo
+
+**Pocket Hero: The Dungeon Inventory** é um RPG em que você escolhe entre três classes de personagens: **Warrior (Guerreiro), Archer (Arqueiro) ou Berserker (Bárbaro)**, e enfrenta diversas ondas de monstros, minibosses e bosses.
+
+Durante sua jornada, você precisará gerenciar estrategicamente os itens da sua mochila para sobreviver aos desafios. A cada inimigo derrotado, você ganha ouro, que pode ser utilizado na loja para adquirir armas mais poderosas, comidas para recuperar HP e armaduras para aumentar sua defesa.
+
+Prepare-se para enfrentar inimigos cada vez mais desafiadores e descubra até onde seu personagem consegue chegar!
